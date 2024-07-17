@@ -1,0 +1,271 @@
+---
+title: JavaScript cheatsheet
+draft: false
+date: 2020-12-10T18:44:42.151Z
+description: "A cheatsheet for JavaScript interviews. Based on Dylan Israel’s awesome Scrimba Frontend Interview Tips, I wrote a few code examples to help with these concepts."
+internal: false
+keywords: "JavaScript, interviews, cs, cheatsheet, scrimba"
+thumb: smwyg.jpg
+featured: true
+---
+
+Based on [Dylan Israel's](https://twitter.com/pizzapokerguy?lang=en) awesome [Scrimba Frontend Interview Tips](https://scrimba.com/learn/frontendinterview/). I wrote a few code examples to understand these concepts better. Shoutout to the awesome [Josh Comeau](https://twitter.com/JoshWComeau) for his incredible operator [lookup tool](https://www.joshwcomeau.com/operator-lookup?match=restspread).
+
+import Table, { H1 } from "../components/table-of-contents-q"
+
+## Table of contents
+
+<Table />
+
+<H1>Q: What is the difference between undefined and undeclared? </H1>
+
+Undefined means that the variable has been declared but has not had a value assigned to it.
+Undeclared is that it hasn't been declared.
+
+```js
+if (false) {
+  let firstNameLet = "Alejandro"
+  var firstNameVar = "Alejandro"
+}
+
+console.log(firstNameVar) // undefined
+console.log(firstNameLet) // ReferenceError: firstNameLet is not defined
+```
+
+<H1>Q: What are falsy values in JavaScript?</H1>
+
+A: A set of unique values that evaluate to false.
+
+<!-- prettier-ignore-start -->
+```JavaScript
+const falsy = [
+  null, 0, undefined, false, NaN, "", -0, 0n
+  ]
+
+console.log(falsy.some(el => el)) // false
+```
+<!-- prettier-ignore-end -->
+
+<H1>Q: What are the differences between const, let, and var?</H1>
+
+A: **const and let** use a block scope (anything between curly brackets) while **var** uses lexical scope.
+
+**const** stores values that will not be reassigned. They can be mutated.
+
+```JavaScript
+const user = { name: "Alejandro" }
+user.name = "Alex"
+console.log(user) // { name: 'Alex' }
+```
+
+**Var** uses hoisting, this means that the variable is declared before any of the code runs. In JS, variable and function declarations are put into memory during the compile phase.
+
+This is why you can call a function before it's been declared
+
+```js
+catName("Tamal")
+
+function catName(name) {
+  console.log("My cat's name is " + name)
+  // My cat's name is Tamal
+}
+```
+
+JavaScript only hoists declarations, not initializations.
+
+```js
+console.log(num) // undefined
+var num // Declaration
+num = 6 // Initialization
+```
+
+<H1>Q: What is the difference between == vs === ?</H1>
+
+This operator checks to see if two values are equivalent. Returns a boolean value.
+== ignores the type and focuses on the value.
+=== does a strict check and checks both type and value.
+
+```js
+const value1 = 5
+const value2 = "5"
+
+console.log(value1 == value2) // true
+console.log(value1 === value2) // false
+```
+
+<H1>Q: What do map(), filter() and reduce() do?</H1>
+
+Map applies the callback to each value. Returns an array with the results.
+
+```js
+const nums = [1, 2, 3]
+const numsAddOne = nums.map(value => value + 1)
+console.log(numsAddOne) // [2,3,4]
+```
+
+Filter applies the callback but only passes the elements that return true.
+
+```js
+const nums = [1, 2, 3, 4]
+const evenNums = nums.filter(value => value % 2 === 0)
+console.log(evenNums) // [2, 4]
+```
+
+Reduce takes a callback with two arguments, the first one is the accumulator, the second is the current value. It takes a second argument which is the initial accumulator value.
+
+For each of the elements in the array, the callback is applied and the result becomes the new accumulator.
+
+```js
+const nums = [1, 2, 3]
+const sum = nums.reduce((total, current) => {
+  return total + current
+}, 0)
+
+console.log(sum) // 6
+```
+
+<H1>Q: What is the difference between undefined and null?</H1>
+
+While undefined means that something doesn't exist, null means something has no value. It's preferable to have null values that might change later rather than undefined. _Friendlier code_
+
+<H1>What are some JavaScript data types?</H1>
+
+Primitives: String, boolean, numbers, BigInt, Symbol.
+Non-primitives: [ ], { }, Map (objects with unique keys that are beyond strings), Set (arrays with unique values)
+
+<H1>What do the spread and rest operators do?</H1>
+
+#### Spread
+
+The spread operator can be used to unwrap an array or an object.
+
+It can also be used to clone or merge arrays and objects.
+
+```js
+const users = ["dinosaur", "pumpkin", "cat"]
+const allUsers = ["Mr. Dog", ...users]
+
+console.log(users)
+// [ 'dinosaur', 'pumpkin', 'cat' ]
+console.log(allUsers)
+// [ 'Mr. Dog', 'dinosaur', 'pumpkin', 'cat' ]
+```
+
+This operator is used in function definitions to collect additional function arguments. Useful when you don't know how many parameters a function needs. It collects them into an array.
+
+```js
+function easy(a, b, c) {
+  console.log("Easy as", a, b, c)
+}
+const letters = ["A", "B", "C"]
+easy(...letters) // Easy as A B C
+```
+
+**concatenate an array**
+
+```js
+const a = ["Mr. Dog", "Mrs. Dog"]
+const b = ["Pup", "Little Dog"]
+
+const family = [...a, ...b]
+
+console.log(family)
+//[ 'Mr. Dog', 'Mrs. Dog', 'Pup', 'Little Dog' ]
+```
+
+#### Rest
+
+Does the opposite of spread. It collects a function's arguments into an array. It's useful when you don't know how many parameters a function needs.
+
+```js
+function order(...elements) {
+  elements.forEach(el => console.log(el))
+}
+order("fries", "milkshake", "cheesburger")
+//fries
+//milkshake
+//cheesburger
+```
+
+<H1>Q: What is and why might you destructure an object or array?</H1>
+
+Destrucuring provides context. It's intended to make code easier to read.
+
+**Destructuring**
+
+Destructuring objects
+
+```js
+const scores = {
+  water: 5,
+  wine: 11,
+  milk: 4,
+  beer: 7,
+}
+const { wine: fav, ...others } = scores
+
+console.log("How would you rate wine?", fav)
+//How would you rate wine? 11
+```
+
+Now let's do arrays
+
+```js
+const user = "Paul Hollywood 🍰"
+const [first, last, emoji] = user.split(" ")
+
+console.log(`${first} loves ${emoji}`)
+//Paul loves 🍰
+```
+
+<H1 id="operators">
+  {" "}
+  Q: What is the difference between the && and || operators?
+</H1>
+
+`||` returns the first falsy value. If there are none, it returns the last element.
+
+Think about it as detectives inside an interrogation room `|`🕵️‍♀️🕵️‍♂️`|`
+They're trying to find **true** statements 🔍
+
+`&&` returns the first truthy value. If there are none, it returns the last element.
+
+Think about this one as the superhero 🦸‍♀️ with the && printed on their costume. They're looking for the **false** statements and bringing them to justice 🚔
+
+See them in action:
+
+```js
+const isFrench = true
+
+const greeting = str => console.log(str)
+
+// If statement
+if (isFrench) {
+  greeting("bonjour! if 🥐")
+} else {
+  greeting("hi! if 🍞")
+}
+// bonjour! if 🥐
+
+// Ternary operator
+isFrench ? greeting("bonjour! ? 🥐") : greeting("hi! ? 🍞")
+// bonjour! ? 🥐
+
+// Or operator
+!isFrench || greeting("bonjour! || 🥐")
+isFrench || greeting("hi! || 🍞")
+// bonjour! || 🥐
+
+// And operator
+isFrench && greeting("bonjour! && 🥐")
+!isFrench && greeting("hi! && 🍞")
+// bonjour! && 🥐
+```
+
+<H1 id="references">References:</H1>
+
+This cheatsheet is based on [Dylan Israel's](https://twitter.com/pizzapokerguy?lang=en) awesome [Scrimba Frontend Interview Tips](https://scrimba.com/learn/frontendinterview/).
+
+Checkout [Josh Comeau's Operator Lookup](https://www.joshwcomeau.com/operator-lookup?match=restspread) for even more operator fun!
+
+\- 🧡 Alejandro

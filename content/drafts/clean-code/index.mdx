@@ -1,0 +1,220 @@
+---
+title: Guide to clean code
+draft: false
+date: 2021-01-06T18:44:42.151Z
+description: "Write clean code. So others can understand your work."
+internal: false
+keywords: "JavaScript, interviews, clean code, cs"
+---
+
+Based on [Dylan Israel's](https://twitter.com/pizzapokerguy?lang=en) awesome [Scrimba Introduction to Clean Code](https://scrimba.com/learn/cleancode).
+
+import Table, { H1 } from "../../components/table-of-contents"
+
+## Table of contents
+
+<Table />
+
+<H1>Motivation</H1>
+
+- 90% of your job as a developer is reading code.
+- Employers value this skill.
+- Effort to payoff ratio is huge.
+- [Dylan Israel](https://twitter.com/pizzapokerguy?lang=en) - Quality software @ Amazon says:
+
+  **_“For me there’s three things that allowed me to double my income early on in my career. Testing, clean code and the SOLID principles”_**
+
+<H1>Linters</H1>
+
+If you’re using VSCode, you can enable “format on save” to make sure the process is automated. Check out how to do it [here](https://www.digitalocean.com/community/tutorials/workflow-auto-eslinting).
+A very popular linter is ESLint, you can get started by adding it to any of your existing projects. It’s easy to [get started](https://eslint.org/docs/user-guide/getting-started) and their docs are great!
+
+<H1>Variable naming</H1>
+
+Our goal is to have **searchable, readable** and **understandable** code. Your variable names are gonna be the most descriptive items in your application. If you follow this principle, you’ll be able to replace comments. Follow the language conventions.
+
+In this example, I have a function that converts a string to a caps lock version of itself and is separated by three dots. Just in case I wanna emulate my mom's style.
+
+```js
+function typeLikeMom(str) {
+  let result = []
+  const strArr = str.split(" ")
+
+  for (let i = 0; i < strArr.length; i++) {
+    const element = strArr[i].toUpperCase()
+
+    result.push(element)
+  }
+
+  return result.join("...")
+}
+console.log(typeLikeMom("I love you"))
+
+// I...LOVE...YOU
+```
+
+Variable names are not very descriptive and it’s hard to follow. Let’s rename some variables to make it easier to read.
+
+```js
+function typeLikeMom(str) {
+  let capWords = []
+  const wordsArray = str.split(" ")
+
+  for (let i = 0; i < wordsArray.length; i++) {
+    const wordOnCaps = wordsArray[i].toUpperCase()
+
+    capWords.push(wordOnCaps)
+  }
+
+  return capWords.join("...")
+}
+console.log(typeLikeMom("I love you"))
+
+// I...LOVE...YOU
+```
+
+<H1>Redundancy</H1>
+
+Repeating the same thing over and over again repeating the same thing over and over again becomes annoying for the person who has to read your code. Make sure that your variable names make sense within the context of what you’re working with.
+
+If you think about how a variable might be accessed in the future, you can find a better way of naming your objects.
+For example `user.userName` doesn't have a nice ring to it. Use `user.name` instead.
+
+Here is an implementation of that:
+
+```js
+function createUser(userData) {
+  const { userName, userEmail, userAge } = userData
+
+  console.log(
+    `User: ${userName}, age ${userAge} 
+    has been created with email "${userEmail}!"`
+  )
+}
+
+createUser({
+  userName: "Poppy",
+  userEmail: "poppy_is_cool@gmail.com",
+  userAge: 100,
+})
+
+// User: Poppy, age 100
+// has been created with email "poppy_is_cool@gmail.com!"
+```
+
+Now **without** redundancy:
+
+```js
+function createUser(data) {
+  const { name, email, age } = data
+
+  console.log(
+    `User: ${name}, age ${age} 
+    has been created with email "${email}!"`
+  )
+}
+
+createUser({
+  name: "Poppy",
+  email: "poppy_is_cool@gmail.com",
+  age: 100,
+})
+
+// User: Poppy, age 100
+//  has been created with email "poppy_is_cool@gmail.com!"
+```
+
+<H1>Magic Numbers</H1>
+
+Magic numbers come from the ether, they’re there for some reason and they made sense at some point. **Make sure that your numbers make sense all the time**, even months after you stopped working on the.
+
+Here is an example where we’re calculating a date in the future. The date object takes time in milliseconds but the function’s input takes days as an argument.
+
+We have to multiply `days` by 24 to get hours, then by 60 to get minutes, then by 60 to get seconds and finally by 1000 to get milliseconds. Our magic number is `86400000`. It might seem obvious when you’re working on the function, but maybe a month from now you won’t be so clear as to where that number comes from.
+
+```js
+function futureDate(days) {
+  const now = Date.now()
+
+  const milisecs = days * 86400000
+  const futureDate = new Date(now + milisecs)
+
+  return `${futureDate.getDate()}/${
+    futureDate.getMonth() + 1
+  }/${futureDate.getFullYear()}`
+}
+futureDate(100)
+```
+
+Let’s remove that magic number and clean up the variables.
+
+```js
+function futureDate(days) {
+  const now = Date.now()
+
+  const oneDay = 24
+  const oneHour = 60
+  const oneMinute = 60
+  const oneMillisecond = 1000
+  const daysInMillisecs = days * oneDay * oneHour * oneMinute * oneMillisecond
+
+  const futureDate = new Date(now + daysInMillisecs)
+  const day = futureDate.getDate()
+  const month = futureDate.getMonth() + 1
+  const year = futureDate.getFullYear()
+
+  return `${day}/${month}/${year}`
+}
+futureDate(100)
+```
+
+<H1>Spacing</H1>
+
+Having proper spacing between statements improves readability. Think about the way you use commas and line breaks when you write an essay. It should flow 🌊
+
+```js
+switch (animalType) {
+  case "dog":
+    bark()
+    break
+  case "cat":
+    sleep()
+    break
+  case "sheep":
+    baaah()
+    break
+  default:
+    zoo()
+}
+```
+
+Let's add some spacing now.
+
+```js
+switch (animalType) {
+  case "dog":
+    bark()
+    break
+
+  case "cat":
+    sleep()
+    break
+
+  case "sheep":
+    baaah()
+    break
+
+  default:
+    zoo()
+}
+```
+
+Now the code is easier to read. Although there are more lines **now, it’s simpler to understand what’s going on**. That’s what we’re after.
+
+<H1>Limiting Parameters</H1>
+
+**Rule of thumb**: once you are using more than two parameters, you should consider breaking up your function.
+
+<H1>Naming Standards</H1>
+
+\- 🧡 Alejandro
