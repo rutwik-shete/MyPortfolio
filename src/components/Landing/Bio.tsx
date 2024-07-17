@@ -35,7 +35,12 @@ export const BioSection = ({ bio }: Props) => {
           <SkillIcons />
           <Features features={features} />
           <ReadMore>
-            <Link href="https://docs.google.com/document/d/1sxAFyUWH0reppsR0o-SmBc1k959uWxLzP6OUARiqKQM/edit?usp=sharing" target="blank">Looking For My CV ?</Link>
+            <Link
+              href="https://docs.google.com/document/d/1sxAFyUWH0reppsR0o-SmBc1k959uWxLzP6OUARiqKQM/edit?usp=sharing"
+              target="blank"
+            >
+              Looking For My CV ?
+            </Link>
           </ReadMore>
         </div>
       </div>

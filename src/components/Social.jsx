@@ -30,10 +30,7 @@ export default function Social({ c = colors.accent, h = 'white', p = null }) {
       <Link href={`https://github.com/rutwik-shete`} target="blank">
         <FaGithub />
       </Link>
-      <Link
-        href={`https://www.linkedin.com/in/rutwik-shete/`}
-        target="blank"
-      >
+      <Link href={`https://www.linkedin.com/in/rutwik-shete/`} target="blank">
         <FaLinkedin />
       </Link>
       <Link href={`https://x.com/rutwikshete`} target="blank">

@@ -52,7 +52,7 @@ const skills = [
   { name: 'FastAPI', type: 'backend' },
   { name: 'Docker', type: 'devOps' },
   { name: 'Kubernetes', type: 'devOps' },
-  { name: 'Research'},
+  { name: 'Research' },
 ];
 
 export default function SkillIcons() {

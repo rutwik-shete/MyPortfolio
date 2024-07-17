@@ -21,7 +21,7 @@ export const ContactSection = () => {
       </CupContainer>
 
       <Email href={'mailto:rutwik.shete@icloud.com'}>
-      rutwik.shete@icloud.com
+        rutwik.shete@icloud.com
       </Email>
 
       <div
