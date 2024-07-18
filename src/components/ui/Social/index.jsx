@@ -24,7 +24,7 @@ const Soc = (props) => {
         <p>{`I'd love to hear from you ☁️`}</p>
         <Social c={'black'} h={colors.accent} />
         <Button
-          to="https://calendly.com/aaspinwall/15"
+          to="https://calendly.com/rutwik-shete"
           style={{ gridArea: 'button' }}
         >
           <div className="center">

@@ -33,7 +33,7 @@ export const ContactSection = () => {
       >
         <SlidingButton
           buttonText={'Get in touch'}
-          link="https://calendly.com/aaspinwall/15"
+          link="https://calendly.com/rutwik-shete"
         />
       </div>
     </div>

@@ -59,8 +59,8 @@ export default function Footer() {
         <Div maxW="200px" color={c.faded}>
           <Logo href="/">Rutwik Shete</Logo>
           <div style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
-            © {new Date().getFullYear()}, Built and designed by Alejandro
-            Aspinwall
+            © {new Date().getFullYear()}, Built and designed by Rutwik
+            Shete
           </div>
         </Div>
 
