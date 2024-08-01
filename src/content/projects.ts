@@ -3,6 +3,7 @@ import * as refy from '../../public/projects/refy/content';
 import * as gleefactor from '../../public/projects/gleefactor/content';
 import * as ing from '../../public/projects/ing/content';
 import * as wodly from '../../public/projects/wodly/content';
+import * as sudokusolver from '../../public/projects/sudokusolver/content';
 
 export type Content = {
   title: string;
@@ -25,4 +26,5 @@ export const content = {
   gleefactor: { ...gleefactor.content },
   ing: { ...ing.content },
   wodly: { ...wodly.content },
+  sudokusolver: { ...sudokusolver.content },
 };

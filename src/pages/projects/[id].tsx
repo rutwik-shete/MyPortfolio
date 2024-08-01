@@ -117,12 +117,14 @@ const ProjectPage = ({ mdxSource, content }: PageProps) => {
             <a href={code}>Github</a>
           </div>
         )}
-        <div>
-          <h3>Live</h3>
-          <a href={live} target={'blank'}>
-            <a href={live}>Site</a>
-          </a>
-        </div>
+        {live && (
+          <div>
+            <h3>Live</h3>
+            <a href={live} target={'blank'}>
+              <a href={live}>Site</a>
+            </a>
+          </div>
+        )}
       </ProjectDetails>
 
       <Body

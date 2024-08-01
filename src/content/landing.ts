@@ -21,19 +21,19 @@ export const landingPage = {
   },
   projects: [
     {
+      body: 'I initiated the project to enhance my skills in promptflow, Telegram chatbot integration, and computer vision model training. This endeavor led to the creation of a state-of-the-art OCR model designed to accurately interpret and produce outputs in a specific format.',
+      image: 'sudokusolver.png',
+      buttonText: 'View project',
+      link: '/projects/sudokusolver/',
+      ...projectData.sudokusolver,
+    },
+    {
       body: 'Adding Soon',
       image: 'ComingSoon.jpg',
       buttonText: 'Adding Soon',
       link: '/',
       ...projectData.refy,
     },
-    // {
-    //   body: 'Assembled and lead a team of 8 developers to create core features and integrate third party APIs. Implemented CI/CD pipeline with Typescript type-checking, database migration, code linting and preview deploys.',
-    //   image: 'refy.png',
-    //   buttonText: 'View project',
-    //   link: '/projects/refy/',
-    //   ...projectData.refy,
-    // },
     // {
     //   body: 'I took their existing wordpress site and turned it into a headless CMS with React on the frontend. The site features e-commerce, downloads and a seamless bilingual experience.',
     //   image: 'glee.png',
